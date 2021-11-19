@@ -1,0 +1,201 @@
+/*general outline to get background stats for just pulses*/
+SELECT
+count(*)
+FROM `stoked-proxy-326119.ni.global_food_prices` a
+LEFT JOIN `stoked-proxy-326119.ni.Commodities` b  
+ON a.cm_id = b.commodity_id
+LEFT JOIN `stoked-proxy-326119.ni.MARKETS` c
+ON a.mkt_id = c.mkt_id AND
+a.mkt_name = c.market
+where b.category = 'pulses and nuts'
+AND  a.cm_id != 119 AND /*groundnuts (shelled)*/
+a.cm_id != 118 AND /*groundnuts (unshelled)*/
+a.cm_id != 248 AND /*soybeans*/
+a.cm_id != 421 AND /*groundnuts (small,shelled)*/
+a.cm_id != 420 AND /*groundnuts (large,shelled)*/
+a.cm_id != 156 AND /*sesame*/
+a.cm_id != 174 AND /*Peanut*/
+a.cm_id != 167 AND /*Cashew*/
+a.cm_id != 355 /*groundnuts (mixed)*/
+AND a.cm_id != 135 /*groundnuts*/
+ 
+ /* ACTIVE YEARS*/
+SELECT
+distinct(a.mp_year),
+count(*) AS records
+FROM `stoked-proxy-326119.ni.global_food_prices` a
+LEFT JOIN `stoked-proxy-326119.ni.Commodities` b  
+ON a.cm_id = b.commodity_id
+LEFT JOIN `stoked-proxy-326119.ni.MARKETS` c
+ON a.mkt_id = c.mkt_id AND
+a.mkt_name = c.market
+where b.category = 'pulses and nuts'
+AND  a.cm_id != 119 AND
+a.cm_id != 118 AND
+a.cm_id != 248 AND
+a.cm_id != 421 AND
+a.cm_id != 420 AND
+a.cm_id != 156 AND
+a.cm_id != 174 AND
+a.cm_id != 167 AND
+a.cm_id != 355
+AND a.cm_id != 135
+GROUP BY a.mp_year
+ORDER BY a.mp_year
+
+/*active countries*/
+SELECT
+count(distinct(adm0_name))
+FROM `stoked-proxy-326119.ni.global_food_prices` a
+LEFT JOIN `stoked-proxy-326119.ni.Commodities` b  
+ON a.cm_id = b.commodity_id
+LEFT JOIN `stoked-proxy-326119.ni.MARKETS` c
+ON a.mkt_id = c.mkt_id AND
+a.mkt_name = c.market
+where b.category = 'pulses and nuts'
+AND  a.cm_id != 119 AND
+a.cm_id != 118 AND
+a.cm_id != 248 AND
+a.cm_id != 421 AND
+a.cm_id != 420 AND
+a.cm_id != 156 AND
+a.cm_id != 174 AND
+a.cm_id != 167 AND
+a.cm_id != 355 AND a.cm_id != 135
+
+/*active markets*/
+SELECT
+count(distinct(a.mkt_name))
+FROM `stoked-proxy-326119.ni.global_food_prices` a
+LEFT JOIN `stoked-proxy-326119.ni.Commodities` b  
+ON a.cm_id = b.commodity_id
+LEFT JOIN `stoked-proxy-326119.ni.MARKETS` c
+ON a.mkt_id = c.mkt_id AND
+a.mkt_name = c.market
+where b.category = 'pulses and nuts'
+AND  a.cm_id != 119 AND
+a.cm_id != 118 AND
+a.cm_id != 248 AND
+a.cm_id != 421 AND
+a.cm_id != 420 AND
+a.cm_id != 156 AND
+a.cm_id != 174 AND
+a.cm_id != 167 AND
+a.cm_id != 355 AND a.cm_id != 135
+
+/*clarifying we got the right pulses*/
+SELECT
+distinct(a.cm_name),
+a.cm_id,
+count(*)
+FROM `stoked-proxy-326119.ni.global_food_prices` a
+LEFT JOIN `stoked-proxy-326119.ni.Commodities` b  
+ON a.cm_id = b.commodity_id
+LEFT JOIN `stoked-proxy-326119.ni.MARKETS` c
+ON a.mkt_id = c.mkt_id AND
+a.mkt_name = c.market
+where b.category = 'pulses and nuts'
+AND  a.cm_id != 119 AND
+a.cm_id != 118 AND
+a.cm_id != 248 AND
+a.cm_id != 421 AND
+a.cm_id != 420 AND
+a.cm_id != 156 AND
+a.cm_id != 174 AND
+a.cm_id != 167 AND
+a.cm_id != 355 AND
+a.cm_id != 153
+group by a.cm_name, a.cm_id
+
+/*records per country*/
+SELECT
+distinct(a.adm0_name) as Country,
+count(*) as records
+FROM `stoked-proxy-326119.ni.global_food_prices` a
+LEFT JOIN `stoked-proxy-326119.ni.Commodities` b  
+ON a.cm_id = b.commodity_id
+LEFT JOIN `stoked-proxy-326119.ni.MARKETS` c
+ON a.mkt_id = c.mkt_id AND
+a.mkt_name = c.market
+where b.category = 'pulses and nuts'
+AND  a.cm_id != 119 AND
+a.cm_id != 118 AND
+a.cm_id != 248 AND
+a.cm_id != 421 AND
+a.cm_id != 420 AND
+a.cm_id != 156 AND
+a.cm_id != 174 AND
+a.cm_id != 167 AND
+a.cm_id != 355 AND
+a.cm_id != 153
+group by a.adm0_name
+order by a.adm0_name
+
+/*recasting bassas da india records into India*/
+UPDATE `stoked-proxy-326119.ni.global_food_prices`
+SET adm0_name ='India'
+WHERE adm0_id =115.0;
+SELECT distinct(a.adm0_name) as Country,
+a.adm0_id,
+count(*) as records
+FROM `stoked-proxy-326119.ni.global_food_prices` a
+LEFT JOIN `stoked-proxy-326119.ni.Commodities` b  
+ON a.cm_id = b.commodity_id
+LEFT JOIN `stoked-proxy-326119.ni.MARKETS` c
+ON a.mkt_id = c.mkt_id AND
+a.mkt_name = c.market
+where b.category = 'pulses and nuts'
+AND  a.cm_id != 119 AND
+a.cm_id != 118 AND
+a.cm_id != 248 AND
+a.cm_id != 421 AND
+a.cm_id != 420 AND
+a.cm_id != 156 AND
+a.cm_id != 174 AND
+a.cm_id != 167 AND
+a.cm_id != 355 AND
+a.cm_id != 153
+group by a.adm0_name, a.adm0_id
+order by a.adm0_name
+
+/*product by country and records per country*/
+SELECT
+distinct (a.cm_name) as Product,
+a.adm0_name as Country,
+count(*) as records
+FROM `stoked-proxy-326119.ni.global_food_prices` a
+LEFT JOIN `stoked-proxy-326119.ni.Commodities` b  
+ON a.cm_id = b.commodity_id
+LEFT JOIN `stoked-proxy-326119.ni.MARKETS` c
+ON a.mkt_id = c.mkt_id AND
+a.mkt_name = c.market
+where b.category = 'pulses and nuts'
+AND  a.cm_id != 119 AND
+a.cm_id != 118 AND
+a.cm_id != 248 AND
+a.cm_id != 421 AND
+a.cm_id != 420 AND
+a.cm_id != 156 AND
+a.cm_id != 174 AND
+a.cm_id != 167 AND
+a.cm_id != 355 AND
+a.cm_id != 153
+group by a.cm_name, a.adm0_name
+order by a.cm_name
+
+/*Transforming data into loadable time series datasets*/
+SELECT
+a.market as Market,
+a.mp_month as Month,
+a.mp_year as Year,
+a.mp_price as Price,
+FROM `stoked-proxy-326119.ni.global_food_prices` a
+LEFT JOIN `stoked-proxy-326119.ni.Commodities` b  
+ON a.cm_id = b.commodity_id
+LEFT JOIN `stoked-proxy-326119.ni.MARKETS` c
+ON a.mkt_id = c.mkt_id AND
+a.mkt_name = c.market
+where a.adm0_name = 'India'
+AND a.cm_name = 'Lentils - Retail'
+AND Market is not NULL
+order by Market, Year, Month
