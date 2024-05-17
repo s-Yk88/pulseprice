@@ -1,5 +1,5 @@
 PULSE PRICES
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 Summary:
 
 Pulses have been considered an environmentally-friendly and inexpensive alternative to commodities like meat, ideal in helping to combat food insecurity. The FFPI suggests that effects of the COVID-19 pandemic have caused dramatic price surges in all food groups, including pulses, that threaten our ability to feed the growing global population. But is it really just the impacts of the pandemic that threatens this ability?
