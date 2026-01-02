@@ -21,5 +21,10 @@ In order to answer the ultimate question of: “What could have happened to the 
     - `pandas` `numpy` `pygwalker`
 - Kanaries AI
     - `graphic walker`
+## Full Report:
+https://zesty-bubbler-a87.notion.site/Forecasts-of-Post-COVID-Pulse-Prices-in-the-Global-South-2021-1ec537d1e6d980e39cdece8f42e648d6?source=copy_link
 
-## 
+### Key Takeaways:
+- Forecasts predicted overall lower pricing for Pulses, suggesting the Pandemic triggered a series of unobserved events resulting in actual prices rising more than expected
+- Cyclical behaviors occurring in both forecasts and actual pricing suggest that there are deeper long term issues that need to be addressed in order to maintain viability of pulses as a food source.
+
